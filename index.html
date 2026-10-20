@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Youssef Bouaouina — Security Engineering Portfolio</title>
+  <meta name="description" content="Interactive DFIR, SOC and DevOps demos by Youssef Bouaouina. Explore a real ATOR investigation, a medication management app and a CI/CD pipeline — no login required.">
+  <meta name="theme-color" content="#06090f">
+  <meta property="og:title" content="Youssef Bouaouina — Security Engineering Portfolio">
+  <meta property="og:description" content="Interactive DFIR, SOC and DevOps project demos. Built by Youssef Bouaouina.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <svg class="svg-sprite" aria-hidden="true">
+    <symbol id="i-github" viewBox="0 0 24 24"><path d="M12 .8a11.3 11.3 0 0 0-3.6 22c.6.1.8-.3.8-.6v-2.2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.3 11.3 0 0 0 12 .8Z"/></symbol>
+    <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.1c.5-1 1.8-2 3.8-2 4 0 4.7 2.6 4.7 5.9V21h-4v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V21h-4V9Z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm9 7.2L4.6 7h14.8L12 12.2ZM4 9.1V17h16V9.1l-7.4 5.8a1 1 0 0 1-1.2 0L4 9.1Z"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M11 3h2v9.2l3.3-3.3 1.4 1.5L12 16l-5.7-5.6 1.4-1.5 3.3 3.3V3ZM4 18h16v3H4v-3Z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M13.2 4.6 20.6 12l-7.4 7.4-1.4-1.4 5-5H3.5v-2h13.3l-5-5 1.4-1.4Z"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 3h7v7h-2V6.4l-8.3 8.3-1.4-1.4L17.6 5H14V3ZM5 5h6v2H7v10h10v-4h2v6H5V5Z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m9.2 16.2-4.4-4.4 1.4-1.4 3 3L17.8 5l1.4 1.4-10 9.8Z"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 2 1.5 21h21L12 2Zm0 5.2 6.8 11.8H5.2L12 7.2Zm-1 3.1h2v4.5h-2v-4.5Zm0 5.8h2v2h-2v-2Z"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><path d="M10.5 3a7.5 7.5 0 1 0 4.7 13.4l4.2 4.2 1.4-1.4-4.2-4.2A7.5 7.5 0 0 0 10.5 3Zm0 2a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11Z"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6.4 5 5.6 5.6L17.6 5 19 6.4 13.4 12l5.6 5.6-1.4 1.4-5.6-5.6L6.4 19 5 17.6l5.6-5.6L5 6.4 6.4 5Z"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5L7 4.5Zm2 3.3 7.9 4.2L9 16.2V7.8Z"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3Zm0 2.2 6 2.3V11c0 3.9-2.5 7.4-6 8.8C8.5 18.4 6 14.9 6 11V6.5l6-2.3Zm-1 4.3h2v5h-2v-5Zm0 6.5h2v2h-2v-2Z"/></symbol>
+    <symbol id="i-server" viewBox="0 0 24 24"><path d="M3 4h18v6H3V4Zm2 2v2h2V6H5Zm-2 6h18v6H3v-6Zm2 2v2h2v-2H5Zm10-8h3v2h-3V6Zm0 8h3v2h-3v-2Z"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 2 10 5-10 5L2 7l10-5Zm0 2.2L5.6 7 12 9.8 18.4 7 12 4.2ZM2 12l10 5 10-5 2 1-12 6L0 13l2-1Zm0 5 10 5 10-5 2 1-12 6L0 18l2-1Z"/></symbol>
+    <symbol id="i-activity" viewBox="0 0 24 24"><path d="M2 12h4l2.5-7 4 14 3-9 2 2h4.5v2H16l-1.3-1.3L12.2 22 8 8.6 6.7 14H2v-2Z"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 2h8l5 5v15H6V2Zm2 2v16h9V8h-4V4H8Zm7 .8V6h1.2L15 4.8Z"/></symbol>
+    <symbol id="i-windows" viewBox="0 0 24 24"><path d="M3 4.6 10.5 3.5v8H3V4.6Zm9-1.3L21 2v9.5h-9V3.3ZM3 12.5h7.5v8L3 19.4v-6.9Zm9 0h9V22l-9-1.3v-8.2Z"/></symbol>
+    <symbol id="i-linux" viewBox="0 0 24 24"><path d="M12 2c-2.6 0-4 2-4 4.7 0 1.7.4 2.4-.8 4.4C6 13.3 4 15.2 4 17.6 4 20 6.2 22 12 22s8-2 8-4.4c0-2.4-2-4.3-3.2-6.5-1.2-2-.8-2.7-.8-4.4C16 4 14.6 2 12 2Zm0 2c1.3 0 2 1.2 2 2.7 0 1.3-.2 2.3.4 3.6-.7.5-1.5.7-2.4.7s-1.7-.2-2.4-.7c.6-1.3.4-2.3.4-3.6C10 5.2 10.7 4 12 4Zm-1.5 6.5h3v1.6h-3V10.5Z"/></symbol>
+    <symbol id="i-docker" viewBox="0 0 24 24"><path d="M3 10h3v3H3v-3Zm4 0h3v3H7v-3Zm4 0h3v3h-3v-3Zm4 0h3v3h-3v-3ZM7 6h3v3H7V6Zm4 0h3v3h-3V6Zm4 0h3v3h-3V6Zm4 0h2v3h-2V6ZM2 14h19c0 4-3 7-9 7-5 0-9-3-10-7Z"/></symbol>
+    <symbol id="i-pill" viewBox="0 0 24 24"><path d="M8.5 3a5.5 5.5 0 0 0-3.9 9.4l7 7a5.5 5.5 0 0 0 7.8-7.8l-7-7A5.5 5.5 0 0 0 8.5 3Zm0 2c.9 0 1.8.4 2.5 1l1.1 1.1-4 4-1-1.1A3.5 3.5 0 0 1 8.5 5Zm5.4 4.5 1 1.1a3.5 3.5 0 1 1-5 5l-1-1 5-5Z"/></symbol>
+  </svg>
+
+  <div class="page-grid" aria-hidden="true"></div>
+
+  <header class="site-header" id="site-header">
+    <a class="brand" href="#top" aria-label="Youssef Bouaouina — home">
+      <span class="brand-mark">YB</span>
+      <span class="brand-text">Youssef Bouaouina<small>Security engineering</small></span>
+    </a>
+    <nav class="site-nav" id="site-nav" aria-label="Primary">
+      <a href="#ator">ATOR</a>
+      <a href="#meditrack">MediTrack</a>
+      <a href="#devops">CI/CD</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <span class="availability"><span class="live-dot"></span>Open to opportunities</span>
+      <a class="btn btn-small btn-ghost" href="mailto:youssefbouaouina82@gmail.com">Get in touch</a>
+      <button class="menu-btn" id="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="hero-copy reveal">
+        <p class="eyebrow"><span class="eyebrow-line"></span>Cybersecurity &amp; DevOps · Tunis, Tunisia</p>
+        <h1>I turn raw telemetry into <span class="text-grad">defensible decisions.</span></h1>
+        <p class="lede">Engineering student at ESPRIT building the layer between endpoint noise and analyst action — DFIR, detection engineering, SOC operations and the pipelines that ship them.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#ator">Enter the ATOR demo <svg class="icon"><use href="#i-arrow"/></svg></a>
+          <a class="btn" href="assets/files/Youssef_Bouaouina_CV_EN.pdf" download>Download CV <svg class="icon"><use href="#i-download"/></svg></a>
+        </div>
+        <div class="hero-meta">
+          <span><svg class="icon"><use href="#i-shield"/></svg>DFIR / SOC / detection</span>
+          <span><svg class="icon"><use href="#i-layers"/></svg>Docker · Kubernetes · CI/CD</span>
+        </div>
+      </div>
+
+      <aside class="hero-console reveal" aria-label="ATOR simulation preview">
+        <div class="shell-bar">
+          <span class="traffic"><i></i><i></i><i></i></span>
+          <span class="shell-title">ator.local · overview</span>
+          <span class="shell-live"><span class="live-dot"></span>replay</span>
+        </div>
+        <div class="hero-console-body">
+          <div class="radar-wrap">
+            <div class="radar">
+              <span class="radar-ring r1"></span>
+              <span class="radar-ring r2"></span>
+              <span class="radar-ring r3"></span>
+              <span class="radar-sweep"></span>
+              <span class="radar-blip b1"></span>
+              <span class="radar-blip b2"></span>
+              <span class="radar-blip b3"></span>
+              <span class="radar-core"></span>
+            </div>
+            <div class="radar-label">live attack surface<strong>3 endpoints</strong><span>Windows · Linux · Docker</span></div>
+          </div>
+          <div class="hero-metrics">
+            <div><strong id="hero-detections">6</strong><span>detections</span></div>
+            <div><strong id="hero-stages">5</strong><span>ATT&amp;CK stages</span></div>
+            <div><strong>20/20</strong><span>E2E checks</span></div>
+          </div>
+          <div class="hero-feed" id="hero-feed"></div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="proof-strip reveal" aria-label="Verified project metrics">
+      <div><strong>20/20</strong><span>end-to-end checks passed</span></div>
+      <div><strong>34/34</strong><span>unit + integration tests</span></div>
+      <div><strong>3</strong><span>endpoint platforms</span></div>
+      <div><strong>5</strong><span>attack stages reconstructed</span></div>
+      <p>Values from the ATOR repository's own verification run.</p>
+    </section>
+
+    <section class="project" id="ator">
+      <div class="section-head reveal">
+        <div>
+          <p class="kicker">/01 · DFIR platform</p>
+          <h2>ATOR <span>DFIR</span></h2>
+          <p class="section-lede">Endpoint investigation and threat hunting, from collection to an investigator-ready report. A six-layer platform built during my DFIR internship — and the demo below is a replay of a real end-to-end run.</p>
+        </div>
+        <div class="section-actions">
+          <a class="btn btn-small" href="https://github.com/youssefbouaouina/ATOR" target="_blank" rel="noopener">View source <svg class="icon"><use href="#i-github"/></svg></a>
+          <a class="btn btn-small btn-ghost" href="assets/files/ator-report.pdf" target="_blank" rel="noopener">Sample report <svg class="icon"><use href="#i-external"/></svg></a>
+        </div>
+      </div>
+
+      <div class="ator-layout reveal">
+        <aside class="architecture-card">
+          <p class="micro-label">architecture / six layers</p>
+          <ol class="layer-list">
+            <li><span>L0</span><div><strong>Endpoints</strong><small>Windows · Linux · Docker</small></div></li>
+            <li><span>L1</span><div><strong>Collector</strong><small>volatile-first · SHA-256 manifests</small></div></li>
+            <li><span>L2</span><div><strong>Ingestion API</strong><small>FastAPI · token auth · audit log</small></div></li>
+            <li><span>L3</span><div><strong>Storage</strong><small>SQLite WAL · raw + detections</small></div></li>
+            <li><span>L4</span><div><strong>Detection</strong><small>YARA · Sigma→SQL · IOC</small></div></li>
+            <li><span>L5</span><div><strong>Enrichment</strong><small>MITRE ATT&amp;CK · attack chain</small></div></li>
+            <li><span>L6</span><div><strong>Output</strong><small>dashboard · PDF · STIX 2.1</small></div></li>
+          </ol>
+          <div class="stack-chips">
+            <span>Python</span><span>FastAPI</span><span>SQLite</span><span>YARA</span><span>Sigma</span><span>Velociraptor</span><span>STIX 2.1</span>
+          </div>
+        </aside>
+
+        <div class="ator-shell" id="ator-demo">
+          <div class="shell-bar">
+            <span class="traffic"><i></i><i></i><i></i></span>
+            <span class="shell-title">ATOR DFIR · investigation console</span>
+            <span class="shell-live"><span class="live-dot"></span>simulation replay</span>
+          </div>
+
+          <div class="ator-runbar">
+            <div class="runbar-left">
+              <span class="run-id">RUN <b>#E2E-20</b></span>
+              <span class="run-time" id="ator-run-time">2026-10-20 02:09 UTC</span>
+            </div>
+            <div class="runbar-right">
+              <span class="risk-pill" id="ator-risk">CRITICAL</span>
+              <span class="score">risk score <strong id="ator-score">39</strong>/100</span>
+            </div>
+          </div>
+
+          <div class="kpi-grid" id="ator-kpis"></div>
+
+          <div class="tabs" role="tablist" aria-label="ATOR demo views">
+            <button class="tab is-active" role="tab" aria-selected="true" data-ator-tab="overview" type="button">Overview</button>
+            <button class="tab" role="tab" aria-selected="false" data-ator-tab="detections" type="button">Detections <span class="tab-count" id="tab-det-count">6</span></button>
+            <button class="tab" role="tab" aria-selected="false" data-ator-tab="chain" type="button">Attack chain</button>
+            <button class="tab" role="tab" aria-selected="false" data-ator-tab="endpoints" type="button">Endpoints</button>
+            <button class="tab" role="tab" aria-selected="false" data-ator-tab="report" type="button">Report</button>
+          </div>
+
+          <div class="ator-views">
+            <section class="ator-view is-active" data-ator-view="overview" role="tabpanel" aria-label="Overview">
+              <div class="overview-split">
+                <article class="panel">
+                  <div class="panel-head"><h3>Detections by severity</h3><span class="micro-label">whole estate</span></div>
+                  <div class="donut-wrap" id="ator-donut"></div>
+                </article>
+                <article class="panel">
+                  <div class="panel-head"><h3>ATT&amp;CK tactics observed</h3><span class="micro-label">enriched offline</span></div>
+                  <div class="tactic-bars" id="ator-tactics"></div>
+                </article>
+              </div>
+              <article class="panel">
+                <div class="panel-head">
+                  <h3>Latest findings</h3>
+                  <button class="text-btn" type="button" data-goto-detections>All detections <svg class="icon"><use href="#i-arrow"/></svg></button>
+                </div>
+                <div class="mini-table" id="ator-recent"></div>
+              </article>
+            </section>
+
+            <section class="ator-view" data-ator-view="detections" role="tabpanel" aria-label="Detections">
+              <div class="filter-bar">
+                <label class="search-box">
+                  <svg class="icon"><use href="#i-search"/></svg>
+                  <input type="search" id="det-search" placeholder="Search rule, host, technique…" autocomplete="off">
+                </label>
+                <label class="select-box"><span>Severity</span>
+                  <select id="det-severity">
+                    <option value="">All</option>
+                    <option value="critical">Critical</option>
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                  </select>
+                </label>
+                <label class="select-box"><span>Host</span>
+                  <select id="det-host"><option value="">All endpoints</option></select>
+                </label>
+                <button class="btn btn-small btn-ghost" id="det-reset" type="button">Reset</button>
+                <span class="result-count" id="det-count">6 findings</span>
+              </div>
+              <div class="table-wrap">
+                <table class="data-table">
+                  <thead><tr><th>Severity</th><th>Detection</th><th>Host</th><th>ATT&amp;CK</th><th>Detected (UTC)</th><th></th></tr></thead>
+                  <tbody id="ator-dets"></tbody>
+                </table>
+              </div>
+              <p class="table-hint">Select a row to inspect the evidence, raw fields and MITRE technique.</p>
+            </section>
+
+            <section class="ator-view" data-ator-view="chain" role="tabpanel" aria-label="Attack chain">
+              <div class="chain-toolbar">
+                <div><p class="micro-label">reconstructed kill chain</p><p class="chain-caption">Built from enriched detections, ordered by MITRE tactic.</p></div>
+                <label class="select-box"><span>Endpoint</span><select id="chain-host"></select></label>
+              </div>
+              <div class="chain" id="ator-chain"></div>
+              <div class="chain-detail" id="chain-detail"></div>
+            </section>
+
+            <section class="ator-view" data-ator-view="endpoints" role="tabpanel" aria-label="Endpoints">
+              <div class="host-grid" id="ator-hosts"></div>
+              <p class="table-hint">This replay contains a Windows attack simulation and a synthetic Linux/Docker estate. Select an endpoint to pivot into its findings.</p>
+            </section>
+
+            <section class="ator-view" data-ator-view="report" role="tabpanel" aria-label="Report">
+              <div class="report-grid">
+                <div class="report-copy">
+                  <p class="micro-label">investigator-ready output</p>
+                  <h3>One click from telemetry to a signed-off narrative.</h3>
+                  <p>The report reconstructs the kill chain, maps techniques, records root cause (what / where / when) and attaches evidence-manifest hashes.</p>
+                  <ul class="check-list">
+                    <li><svg class="icon"><use href="#i-check"/></svg>Executive summary + risk verdict</li>
+                    <li><svg class="icon"><use href="#i-check"/></svg>ATT&amp;CK coverage and timeline</li>
+                    <li><svg class="icon"><use href="#i-check"/></svg>Root cause and source hypotheses</li>
+                    <li><svg class="icon"><use href="#i-check"/></svg>Evidence integrity manifest</li>
+                  </ul>
+                  <div class="report-actions">
+                    <a class="btn btn-primary btn-small" href="assets/files/ator-report.pdf" download>Download PDF <svg class="icon"><use href="#i-download"/></svg></a>
+                    <a class="btn btn-small" href="assets/files/ator-report.json" download>JSON</a>
+                    <a class="btn btn-small" href="assets/files/ator-stix.json" download>STIX 2.1</a>
+                    <a class="btn btn-small" href="assets/files/ator-navigator.json" download>Navigator</a>
+                  </div>
+                  <dl class="report-facts">
+                    <div><dt>Verdict</dt><dd id="report-verdict">—</dd></div>
+                    <div><dt>Detections</dt><dd id="report-count">—</dd></div>
+                    <div><dt>Attack stages</dt><dd id="report-stages">—</dd></div>
+                    <div><dt>Generated</dt><dd id="report-date">—</dd></div>
+                  </dl>
+                </div>
+                <div class="report-preview">
+                  <div class="report-preview-bar"><span class="micro-label">incident_report_host1.pdf</span><span class="pdf-tag">PDF · 4 pages</span></div>
+                  <iframe id="report-frame" title="ATOR sample incident report" data-src="assets/files/ator-report.pdf" loading="lazy"></iframe>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <div class="shell-foot">
+            <span><span class="live-dot"></span>No backend required — data replayed from a real ATOR run</span>
+            <span class="mono">containment: dry-run</span>
+          </div>
+        </div>
+      </div>
+      <p class="demo-disclaimer">The console is an interactive replay using exported output from ATOR's end-to-end simulation (20/20 checks). ATOR itself runs locally or in a lab; containment is dry-run by design. No live endpoint is exposed here.</p>
+    </section>
+
+    <section class="project project-alt" id="meditrack">
+      <div class="section-head reveal">
+        <div>
+          <p class="kicker">/02 · full-stack product</p>
+          <h2>Medi<span>Track</span></h2>
+          <p class="section-lede">A medication management platform built with Django REST and React + TypeScript. Inventory, adherence, interaction checks and low-stock alerts — with the core workflow working right here in your browser.</p>
+        </div>
+        <div class="section-actions">
+          <a class="btn btn-small" href="https://github.com/youssefbouaouina/meditrack" target="_blank" rel="noopener">View source <svg class="icon"><use href="#i-github"/></svg></a>
+        </div>
+      </div>
+
+      <div class="ator-layout reveal">
+        <aside class="architecture-card med-side">
+          <p class="micro-label">product surface</p>
+          <ul class="feature-list">
+            <li><strong>Inventory</strong><span>stock levels, forms, schedules</span></li>
+            <li><strong>Adherence</strong><span>weekly calendar, dose tracking</span></li>
+            <li><strong>Interactions</strong><span>pairwise risk explanation</span></li>
+            <li><strong>Alerts</strong><span>low stock and missed doses</span></li>
+          </ul>
+          <p class="micro-label">stack</p>
+          <div class="stack-chips"><span>Django</span><span>DRF</span><span>JWT</span><span>React</span><span>TypeScript</span><span>Vite</span><span>Tailwind</span><span>SQLite</span></div>
+          <div class="side-note"><svg class="icon"><use href="#i-alert"/></svg><p>This is a front-end demo with sample data. It is not medical advice and does not call a real OpenFDA or clinical service.</p></div>
+        </aside>
+
+        <div class="med-shell" id="meditrack-demo">
+          <div class="shell-bar">
+            <span class="traffic"><i></i><i></i><i></i></span>
+            <span class="shell-title">MediTrack · patient workspace</span>
+            <span class="shell-live med-live"><span class="live-dot"></span>local demo</span>
+          </div>
+
+          <div class="med-head">
+            <div class="patient">
+              <span class="avatar">DP</span>
+              <div><strong>Demo patient</strong><small>Long-term care · sample dataset</small></div>
+            </div>
+            <div class="med-head-actions">
+              <button class="btn btn-small btn-ghost" id="med-reset" type="button">Reset demo</button>
+              <button class="btn btn-small btn-primary" id="med-add-open" type="button">Add medication <span class="plus">+</span></button>
+            </div>
+          </div>
+
+          <div class="med-kpis" id="med-kpis"></div>
+
+          <div class="tabs" role="tablist" aria-label="MediTrack demo views">
+            <button class="tab is-active" role="tab" aria-selected="true" data-med-tab="inventory" type="button">Inventory</button>
+            <button class="tab" role="tab" aria-selected="false" data-med-tab="adherence" type="button">Weekly adherence</button>
+            <button class="tab" role="tab" aria-selected="false" data-med-tab="interactions" type="button">Interactions</button>
+          </div>
+
+          <div class="med-views">
+            <section class="med-view is-active" data-med-view="inventory" role="tabpanel" aria-label="Inventory">
+              <div class="filter-bar">
+                <label class="search-box"><svg class="icon"><use href="#i-search"/></svg><input type="search" id="med-search" placeholder="Search medication…" autocomplete="off"></label>
+                <label class="toggle-box"><input type="checkbox" id="med-low-only"><span>Low stock only</span></label>
+                <span class="result-count" id="med-count"></span>
+              </div>
+              <div class="table-wrap">
+                <table class="data-table med-table">
+                  <thead><tr><th>Medication</th><th>Schedule</th><th>Stock</th><th>Status</th><th></th></tr></thead>
+                  <tbody id="med-table"></tbody>
+                </table>
+              </div>
+            </section>
+
+            <section class="med-view" data-med-view="adherence" role="tabpanel" aria-label="Weekly adherence">
+              <div class="adherence-head">
+                <div><p class="micro-label">current week</p><p class="week-range" id="med-week-range"></p></div>
+                <div class="adherence-score"><span id="med-adherence">0%</span><small>doses taken</small></div>
+              </div>
+              <div class="week-wrap">
+                <table class="week-table" id="med-week"></table>
+              </div>
+              <p class="table-hint">Click a cell to toggle every scheduled dose for that day. Changes are stored in your browser.</p>
+            </section>
+
+            <section class="med-view" data-med-view="interactions" role="tabpanel" aria-label="Interactions">
+              <div class="interaction-checker">
+                <div class="checker-controls">
+                  <label class="select-box"><span>Medication A</span><select id="int-a"></select></label>
+                  <span class="checker-vs">+</span>
+                  <label class="select-box"><span>Medication B</span><select id="int-b"></select></label>
+                  <button class="btn btn-small btn-primary" id="int-check" type="button">Check interaction</button>
+                </div>
+                <div class="interaction-result" id="int-result"><p>Select two medications to check the sample interaction dataset.</p></div>
+              </div>
+              <div class="interaction-list" id="med-interactions"></div>
+            </section>
+          </div>
+
+          <div class="shell-foot"><span><span class="live-dot"></span>Editable demo stored locally in your browser</span><span class="mono">sample data</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project" id="devops">
+      <div class="section-head reveal">
+        <div>
+          <p class="kicker">/03 · delivery engineering</p>
+          <h2>devops<span>NIDS</span></h2>
+          <p class="section-lede">A Spring Boot network intrusion detection service shipped through a real Jenkins pipeline: build, test, quality gate, containerize and deploy to Kubernetes. Press run to watch the stages execute.</p>
+        </div>
+        <div class="section-actions">
+          <a class="btn btn-small" href="https://github.com/youssefbouaouina/devopsNIDS" target="_blank" rel="noopener">View source <svg class="icon"><use href="#i-github"/></svg></a>
+        </div>
+      </div>
+
+      <div class="pipe-shell reveal">
+        <div class="shell-bar">
+          <span class="traffic"><i></i><i></i><i></i></span>
+          <span class="shell-title">Jenkins · devopsNIDS · main</span>
+          <span class="shell-live"><span class="live-dot"></span>simulated build</span>
+        </div>
+        <div class="pipe-head">
+          <div class="pipe-id">
+            <span class="branch-tag">main</span>
+            <span class="mono">commit 7c1a9e2</span>
+            <span class="pipe-build">build <b>#184</b></span>
+          </div>
+          <div class="pipe-actions">
+            <label class="toggle-box"><input type="checkbox" id="pipe-fail"><span>Inject test failure</span></label>
+            <button class="btn btn-small btn-primary" id="pipe-run" type="button"><svg class="icon"><use href="#i-play"/></svg>Run pipeline</button>
+          </div>
+        </div>
+        <div class="pipeline" id="pipe-stages">
+          <div class="pipe-stage" data-stage="checkout"><span class="stage-index">01</span><div><strong>Checkout</strong><small>GitHub</small></div><span class="stage-state">queued</span></div>
+          <div class="pipe-stage" data-stage="build"><span class="stage-index">02</span><div><strong>Build</strong><small>Maven</small></div><span class="stage-state">queued</span></div>
+          <div class="pipe-stage" data-stage="test"><span class="stage-index">03</span><div><strong>Test</strong><small>JUnit</small></div><span class="stage-state">queued</span></div>
+          <div class="pipe-stage" data-stage="quality"><span class="stage-index">04</span><div><strong>Quality gate</strong><small>SonarQube</small></div><span class="stage-state">queued</span></div>
+          <div class="pipe-stage" data-stage="package"><span class="stage-index">05</span><div><strong>Containerize</strong><small>Docker</small></div><span class="stage-state">queued</span></div>
+          <div class="pipe-stage" data-stage="deploy"><span class="stage-index">06</span><div><strong>Deploy</strong><small>Kubernetes</small></div><span class="stage-state">queued</span></div>
+        </div>
+        <div class="pipe-bottom">
+          <div class="log-panel">
+            <div class="log-head"><span>console output</span><span class="mono" id="pipe-status">idle</span></div>
+            <div class="pipe-log" id="pipe-log"><span class="log-muted">$ waiting for a build…</span></div>
+          </div>
+          <div class="pipe-meta">
+            <div><span>duration</span><strong id="pipe-duration">—</strong></div>
+            <div><span>tests</span><strong id="pipe-tests">42</strong></div>
+            <div><span>image</span><strong class="mono">devopsnids:184</strong></div>
+            <div><span>monitoring</span><strong>Prometheus + Grafana</strong></div>
+          </div>
+        </div>
+      </div>
+      <p class="demo-disclaimer">The pipeline runner is a browser animation of the project's real Jenkins stages; no cloud build is triggered. The repository contains the application, Dockerfile and Jenkins configuration.</p>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="contact-card reveal">
+        <div>
+          <p class="kicker">/04 · next step</p>
+          <h2>Let's build the layer between <span class="text-grad">signal and action.</span></h2>
+          <p>I'm looking for an internship or first role in DFIR, SOC, detection engineering or DevOps. If you want a deeper walkthrough of any demo, I'll happily give one.</p>
+          <div class="contact-actions">
+            <a class="btn btn-primary" href="mailto:youssefbouaouina82@gmail.com">youssefbouaouina82@gmail.com <svg class="icon"><use href="#i-mail"/></svg></a>
+            <a class="btn" href="https://www.linkedin.com/in/youssef-bouaouina-93150330a" target="_blank" rel="noopener">LinkedIn <svg class="icon"><use href="#i-linkedin"/></svg></a>
+            <a class="btn" href="https://github.com/youssefbouaouina" target="_blank" rel="noopener">GitHub <svg class="icon"><use href="#i-github"/></svg></a>
+          </div>
+          <div class="cv-row">
+            <span>CV:</span>
+            <a href="assets/files/Youssef_Bouaouina_CV_EN.pdf" download>English <svg class="icon"><use href="#i-download"/></svg></a>
+            <a href="assets/files/Youssef_Bouaouina_CV_FR.pdf" download>Français <svg class="icon"><use href="#i-download"/></svg></a>
+          </div>
+        </div>
+        <aside class="cert-card">
+          <p class="micro-label">verified credentials</p>
+          <ul class="cert-list">
+            <li><span class="cert-badge">C</span><div><strong>Cisco CCNA 2</strong><small>Switching, Routing &amp; Wireless Essentials</small></div></li>
+            <li><span class="cert-badge f">F</span><div><strong>Fortinet NSE 1 · 2 · 3</strong><small>Network Security Associate · IDs 5116367382YB, 5048210791YB, 2083836175YB</small></div></li>
+          </ul>
+          <a class="text-btn" href="https://training.fortinet.com/admin/tool/certificate/index.php" target="_blank" rel="noopener">Verify Fortinet IDs <svg class="icon"><use href="#i-external"/></svg></a>
+          <p class="cert-note">Fortinet validation numbers are issued by the Fortinet Training Institute. Enter them in the official verification portal.</p>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div><span class="brand-mark small">YB</span><p>Youssef Bouaouina · Tunis, Tunisia</p></div>
+    <p class="footer-note">Static site, no tracking. Demos use exported or sample data and run entirely in your browser.</p>
+    <a href="#top">Back to top ↑</a>
+  </footer>
+
+  <dialog class="modal" id="det-dialog">
+    <div class="modal-head">
+      <p class="micro-label">finding detail</p>
+      <button class="modal-close" type="button" data-close-dialog aria-label="Close"><svg class="icon"><use href="#i-close"/></svg></button>
+    </div>
+    <div id="det-dialog-body"></div>
+  </dialog>
+
+  <dialog class="modal med-modal" id="med-dialog">
+    <div class="modal-head">
+      <div><p class="micro-label">inventory</p><h3>Add a medication</h3></div>
+      <button class="modal-close" type="button" data-close-dialog aria-label="Close"><svg class="icon"><use href="#i-close"/></svg></button>
+    </div>
+    <form id="med-form" class="med-form">
+      <label>Name<input name="name" required maxlength="40" placeholder="e.g. Lisinopril"></label>
+      <div class="form-row">
+        <label>Strength<input name="strength" required maxlength="20" placeholder="10 mg"></label>
+        <label>Form<input name="form" required maxlength="20" placeholder="Tablet"></label>
+      </div>
+      <label>Schedule<input name="schedule" required maxlength="40" placeholder="1× daily"></label>
+      <label>Dose times<input name="times" required placeholder="09:00, 21:00" pattern="^([01][0-9]|2[0-3]):[0-5][0-9](,\s*([01][0-9]|2[0-3]):[0-5][0-9])*$"></label>
+      <div class="form-row">
+        <label>Stock<input name="stock" type="number" min="0" max="999" value="30" required></label>
+        <label>Low-stock threshold<input name="threshold" type="number" min="0" max="999" value="10" required></label>
+      </div>
+      <p class="form-note">Demo only. This data stays in your browser.</p>
+      <div class="form-actions">
+        <button class="btn btn-ghost" type="button" data-close-dialog>Cancel</button>
+        <button class="btn btn-primary" type="submit">Add medication</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="assets/js/app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+{
+  "profile": {
+    "name": "Demo patient",
+    "note": "Sample data for demonstration. Nothing here is medical advice."
+  },
+  "medications": [
+    {
+      "id": "med-warfarin",
+      "name": "Warfarin",
+      "strength": "5 mg",
+      "form": "Tablet",
+      "schedule": "1× daily · evening",
+      "times": ["20:00"],
+      "stock": 24,
+      "threshold": 10,
+      "color": "#ff7a90",
+      "note": "Anticoagulant · INR monitoring"
+    },
+    {
+      "id": "med-ibuprofen",
+      "name": "Ibuprofen",
+      "strength": "200 mg",
+      "form": "Tablet",
+      "schedule": "As needed · max 3× daily",
+      "times": ["08:00", "14:00", "20:00"],
+      "stock": 14,
+      "threshold": 8,
+      "color": "#ffb454",
+      "note": "NSAID · take with food"
+    },
+    {
+      "id": "med-amoxicillin",
+      "name": "Amoxicillin",
+      "strength": "500 mg",
+      "form": "Capsule",
+      "schedule": "3× daily · 7 days",
+      "times": ["08:00", "14:00", "20:00"],
+      "stock": 9,
+      "threshold": 12,
+      "color": "#57d9ff",
+      "note": "Antibiotic · complete the course"
+    },
+    {
+      "id": "med-metformin",
+      "name": "Metformin",
+      "strength": "850 mg",
+      "form": "Tablet",
+      "schedule": "2× daily · with meals",
+      "times": ["08:00", "20:00"],
+      "stock": 42,
+      "threshold": 15,
+      "color": "#38f2c4",
+      "note": "Glycemic control"
+    },
+    {
+      "id": "med-atorvastatin",
+      "name": "Atorvastatin",
+      "strength": "20 mg",
+      "form": "Tablet",
+      "schedule": "1× daily · night",
+      "times": ["22:00"],
+      "stock": 30,
+      "threshold": 10,
+      "color": "#a78bfa",
+      "note": "Lipid management"
+    },
+    {
+      "id": "med-vitd",
+      "name": "Vitamin D3",
+      "strength": "1000 IU",
+      "form": "Capsule",
+      "schedule": "1× daily · morning",
+      "times": ["09:00"],
+      "stock": 7,
+      "threshold": 10,
+      "color": "#f4d35e",
+      "note": "Supplement"
+    }
+  ],
+  "interactions": [
+    {
+      "a": "Warfarin",
+      "b": "Ibuprofen",
+      "severity": "major",
+      "effect": "Additive bleeding risk: NSAIDs impair platelet function and can irritate the GI tract.",
+      "action": "Avoid the combination. Use acetaminophen for pain if appropriate; contact the prescriber."
+    },
+    {
+      "a": "Warfarin",
+      "b": "Amoxicillin",
+      "severity": "moderate",
+      "effect": "Antibiotics can alter gut flora and increase INR; bleeding risk may rise.",
+      "action": "Monitor INR closely during and after the antibiotic course."
+    },
+    {
+      "a": "Metformin",
+      "b": "Ibuprofen",
+      "severity": "moderate",
+      "effect": "NSAIDs may reduce renal function, increasing metformin accumulation risk.",
+      "action": "Use the lowest effective NSAID dose and monitor renal function."
+    }
+  ]
+}

